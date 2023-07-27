@@ -1,32 +1,33 @@
 class Solution {
 public:
     long long maxRunTime(int n, vector<int>& batteries) {
-        // using pq
-        // total battery charge store in sum
-        // now for n comp. -> sum/n power for simulataneous operations
-        long long totalChargePresent = 0;
-        for(auto &it: batteries){
-            totalChargePresent += it;
+        // using Bin. search 
+        // check if all comp can be run for m unit of time
+        // n*m -> total hours
+        // we take power of all batteries -> <=m from each
+        // if enough power for n*m hours-> so for m hours simultaneously can be run
+
+        long long l=0,r=0;
+        long long total=0;
+        for(auto it: batteries){
+            total+=(it);
         }
-        priority_queue<int> pq;
-        for(auto &it: batteries){
-            pq.push(it);
+        r = total/n;
+        while(l<r){
+            long long mid = (l+r+1)/2;
+            // this is for taking integer units of time
+            long long timeOperated = 0;
+
+            for(auto it: batteries){
+                timeOperated+=min(((long long)it), mid);
+            }
+            if(timeOperated>=n*mid){
+                l = mid;
+            }
+            else{
+                r = mid - 1;
+            }
         }
-
-        // until we have a battery with charge remaining > sum/n then it can be used for a computer as long as simulataneous op. is reqd for it and need to check for remaining ones
-        while(pq.top()>totalChargePresent/n){
-            // going n times
-            // each req O(log m)
-            // T.C. - O(nlogm)
-            totalChargePresent-=pq.top();
-            pq.pop();
-            // here need to decrement n as well
-            // since single comp. can go as long as a battery has charge totalCharge/n
-            n--;
-        }
-
-        return totalChargePresent/n;
-
-
+        return l;
     }
 };
