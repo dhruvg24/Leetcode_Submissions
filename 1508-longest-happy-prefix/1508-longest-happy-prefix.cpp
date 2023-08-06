@@ -7,7 +7,7 @@ public:
                 int start = i;
                 int end = n - 1;
                 while(start>=0 && end>=start){
-                    if (s[start] != s[end])
+                    if(s[start] != s[end])
                         break;
                     start--;
                     end--;
