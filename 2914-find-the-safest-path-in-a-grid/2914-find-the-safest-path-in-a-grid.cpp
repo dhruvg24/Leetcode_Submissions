@@ -38,6 +38,9 @@ public:
         queue<pair<int, int>> q;
         vector<vector<bool>> vis(n, vector<bool> (n, false));
         vector<vector<int>> dist(n, vector<int>(n, INT_MAX));
+        // finding the 1s present in the matrix
+        // and pushing in q
+
         for(int i = 0;i<n;i++){
             for(int j = 0;j<n;j++){
                 if(grid[i][j]==1)
@@ -50,6 +53,8 @@ public:
             }
         }
         while(!q.empty()){
+            // from all the 1s in curr q -> see the adjacent numbers(4 directional if valid)
+            // will create a distance array from 1 present -> nearest
             int qsize = q.size();
             while(qsize--){
                 int r = q.front().first, c = q.front().second;
