@@ -10,6 +10,8 @@ public:
         }
         for(int i = 0;i<n-1;i++){
             if(nums[i]<i+1 && 1+i<nums[i+1]){
+                // 2nd condition for not selected student
+                
                 cnt++;
             }
         }
