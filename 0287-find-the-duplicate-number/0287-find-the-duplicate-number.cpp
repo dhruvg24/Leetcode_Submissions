@@ -1,19 +1,17 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-    //    different approach by finding the cycle
-        int slow = 0, fast= 0;
-        do{
-            slow = nums[slow], fast = nums[nums[fast]];
-
-        }while(slow!=fast);
-
-        // set slow to start again
-        slow = 0;
-        while(slow!=fast){
-            slow = nums[slow], fast = nums[fast];
+        int n =nums.size();
+        for(int i=0;i<n;i++)
+        {
+            int tmp=abs(nums[i]);
+            if(nums[tmp-1]>=0){
+                nums[tmp-1]*=-1;
+            }
+            else{
+                return tmp;
+            }
         }
-        return slow;
-        // now this will be the duplicate number
+        return 0;
     }
 };
